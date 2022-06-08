@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // import App from './App';
-import Calculation from './Calculation';
+// import Calculation from './Calculation';
+// import StoryPrompt from './StoryPrompt';
+import ActionableResults from './ActionableResults';
 import './index.css';
 
 ReactDOM.render(
-  <Calculation />,
+  <ActionableResults />,
   document.getElementById('root')
 );
