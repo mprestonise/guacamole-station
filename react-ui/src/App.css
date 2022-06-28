@@ -299,3 +299,15 @@ span.outcome-label.actionable {
   margin-bottom: 4px;
   font-weight: bold;
 }
+
+.test-data-output {
+  color: white;
+}
+.test-data-output span,
+.test-data-output img {
+  display: block;
+}
+.test-data-output span.glossary-title,
+.test-data-output img {
+  margin-bottom: 16px;
+}
