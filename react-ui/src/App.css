@@ -260,6 +260,13 @@ span.outcome-label.actionable {
   color: white;
 }
 
+span.outcome-label.tester.one {
+  background: #30C5FF;
+}
+span.outcome-label.tester.two {
+  background: #F6AE2D;
+}
+
 .App-sidebar span {
   display: block;
   font-size: 12px;
@@ -310,4 +317,32 @@ span.outcome-label.actionable {
 .test-data-output span.glossary-title,
 .test-data-output img {
   margin-bottom: 16px;
+}
+
+
+.selectedTesters strong {
+  text-transform: capitalize;
+}
+p.tester-identifier span {
+  opacity: 1;
+  display: inline-block;
+  vertical-align: middle;
+}
+.dot,
+.Metric-box span.dot {
+  display: inline-block;
+  vertical-align: middle;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background: #676f76;
+  margin-right: 4px;
+}
+.dot-one,
+.Metric-box span.dot-one {
+  background: #30C5FF;
+}
+.Metric-box span.dot-two,
+.dot-two {
+  background: #F6AE2D;
 }
