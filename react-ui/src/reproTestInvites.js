@@ -11,7 +11,7 @@ class ReproTests extends Component {
       testerTwoAcceptedWithoutEdit: 41,
       testerTwoRejectedRate: 8,
       testerTwoScore: 5.13,
-      selectedTesters: ['tester one']
+      selectedTesters: ['tester two']
     };
     this.updateCriteria = this.updateCriteria.bind(this);
     this.calculateTesterOne = this.calculateTesterOne.bind(this);
