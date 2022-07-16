@@ -67,14 +67,14 @@ class ReproTests extends Component {
             <div className="App-sidebar">
               <h3>Tester selection</h3>
               <p>How to determine which testers to invite to checks first</p>
-              <p>Divide the accepted_without_edit rate by the rejection_per_hundred rate</p>
+              <p>Divide the tester performance score by the rejection rate per 100</p>
               <p className="tester-identifier"><span className="dot dot-one"></span><span>Tester one</span></p>
-              <span>Accepted w/o edit: {this.state.testerOneAcceptedWithoutEdit}%</span>
+              <span>Tester performance score: {this.state.testerOneAcceptedWithoutEdit}</span>
               <input type="range" value={this.state.testerOneAcceptedWithoutEdit} min={1} max={99} step={1} onChange={(e) => this.updateCriteria("testerOneAcceptedWithoutEdit", parseInt(e.target.value, 10))} />
               <span>Rejection rate per 100: {this.state.testerOneRejectedRate}%</span>
               <input type="range" value={this.state.testerOneRejectedRate} min={1} max={99} step={1} onChange={(e) => this.updateCriteria("testerOneRejectedRate", parseInt(e.target.value, 10))} />
               <p className="tester-identifier"><span className="dot dot-two"></span><span>Tester two</span></p>
-              <span>Accepted w/o edit: {this.state.testerTwoAcceptedWithoutEdit}%</span>
+              <span>Tester performance score: {this.state.testerTwoAcceptedWithoutEdit}</span>
               <input type="range" value={this.state.testerTwoAcceptedWithoutEdit} min={1} max={99} step={1} onChange={(e) => this.updateCriteria("testerTwoAcceptedWithoutEdit", parseInt(e.target.value, 10))} />
               <span>Rejection rate per 100: {this.state.testerTwoRejectedRate}%</span>
               <input type="range" value={this.state.testerTwoRejectedRate} min={1} max={99} step={1} onChange={(e) => this.updateCriteria("testerTwoRejectedRate", parseInt(e.target.value, 10))} />
@@ -84,7 +84,7 @@ class ReproTests extends Component {
               <div className="Bugs actionable-results">
                 <div className="Metric-box">
                   <strong>{this.state.testerOneAcceptedWithoutEdit}%</strong>
-                  <span><span className="dot dot-one"></span>Tester One<br />Accepted w/o edit rate</span>
+                  <span><span className="dot dot-one"></span>Tester One<br />Tester performance score</span>
                 </div>
                 <div className="Metric-box">
                   <strong>{this.state.testerOneRejectedRate}%</strong>
@@ -92,7 +92,7 @@ class ReproTests extends Component {
                 </div>
                 <div className="Metric-box">
                   <strong>{this.state.testerTwoAcceptedWithoutEdit}%</strong>
-                  <span><span className="dot dot-two"></span>Tester Two<br />Accepted w/o edit rate</span>
+                  <span><span className="dot dot-two"></span>Tester Two<br />Tester performance score</span>
                 </div>
                 <div className="Metric-box">
                   <strong>{this.state.testerTwoRejectedRate}%</strong>
