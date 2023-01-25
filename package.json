@@ -1,7 +1,7 @@
 {
-  "name": "heroku-cra-node",
+  "name": "guacamole-station",
   "version": "1.0.0",
-  "description": "How to use create-react-app with a custom Node API on Heroku",
+  "description": "A tool for evaluating duplicates against a list of issues",
   "engines": {
     "node": "8.9.x"
   },
@@ -18,11 +18,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mars/heroku-cra-node.git"
+    "url": "https://github.com/mprestonise/guacamole-station"
   },
   "keywords": [
     "node",
-    "heroku",
     "create-react-app",
     "react"
   ],
