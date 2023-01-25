@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Pane, Heading, Text, TextInput, Switch, Strong, majorScale } from 'evergreen-ui'
+import { Pane, Heading, Text, TextInput, Select, Switch, Strong, majorScale } from 'evergreen-ui'
 import NewIssueForm from './NewIssueForm'
 import KnownIssuesList from './KnownIssuesList'
 
@@ -145,18 +145,23 @@ class App extends Component {
         <Pane padding={majorScale(4)} paddingLeft={majorScale(5)}>
           <Heading size={600}>List of issues</Heading>
           <Heading size={100} display="block" marginTop={majorScale(3)}>Settings</Heading>
-          <Pane display="flex" padding={majorScale(2)} marginTop={majorScale(2)} marginBottom={majorScale(3)} alignItems="center" background="tint2" borderRadius={3}>
-            <Pane>
-              <Select onChange={e => this.setState({ model: e.target.value})}>
-                <option value="https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2" selected>MiniLM-L6</option>
+          <Pane padding={majorScale(2)} marginTop={majorScale(2)} marginBottom={majorScale(3)} background="tint2" borderRadius={3}>
+            {/* <Pane display="flex" alignItems="center" marginBottom={majorScale(2)}>
+              <Text marginRight={majorScale(1)}>Sentence similarity model</Text>
+              <Select maxWidth={160} value={this.state.model} onChange={e => this.setState({ model: e.target.value})}>
+                <option value="https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2">MiniLM-L6</option>
                 <option value="https://api-inference.huggingface.co/models/sentence-transformers/all-mpnet-base-v2">mpnet</option>
                 <option value="https://api-inference.huggingface.co/models/sentence-transformers/all-distilroberta-v1">Roberta</option>
               </Select>
+            </Pane> */}
+            <Pane display="flex" alignItems="center" marginBottom={majorScale(2)}>
+              <Text marginRight={majorScale(1)}>Similarity threshold for duplicate detection</Text>
+              <TextInput width={64} onChange={e => this.setState({ similarityThreshold: e.target.value })} value={this.state.similarityThreshold} />
             </Pane>
-            <Text marginRight={majorScale(1)}>Similarity threshold for duplicate detection</Text>
-            <TextInput width={64} onChange={e => this.setState({ similarityThreshold: e.target.value })} value={this.state.similarityThreshold} />
-            <Switch marginLeft={majorScale(3)} checked={this.state.useActualResult} onChange={(e) => this.setState({ useActualResult: !this.state.useActualResult })} />
-            <Text marginLeft={majorScale(1)}>Use <Strong>Actual result</Strong> field instead of <Strong>Issue summary</Strong> field for similarity evaluation</Text>
+            <Pane display="flex" alignItems="center">
+              <Switch checked={this.state.useActualResult} onChange={(e) => this.setState({ useActualResult: !this.state.useActualResult })} />
+              <Text marginLeft={majorScale(1)}>Use <Strong>Actual result</Strong> field instead of <Strong>Issue summary</Strong> field for similarity evaluation</Text>
+            </Pane>
           </Pane>
           <KnownIssuesList issues={this.state.knownIssues} />
         </Pane>
