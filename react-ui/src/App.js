@@ -9,6 +9,7 @@ class App extends Component {
     this.state = {
       similarityThreshold: 0.5,
       useActualResult: false,
+      model: 'https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2',
       knownIssues: [
         {
           id: 1,
@@ -79,7 +80,7 @@ class App extends Component {
         sentences: this.state.useActualResult ? newKnownIssues.map(i => i.actual) : newKnownIssues.map(i => i.summary)
       }
     }
-    fetch('https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2', {
+    fetch(this.state.model, {
 			headers: { Authorization: "Bearer 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" },
 			method: "POST",
 			body: JSON.stringify(data)
@@ -145,6 +146,13 @@ class App extends Component {
           <Heading size={600}>List of issues</Heading>
           <Heading size={100} display="block" marginTop={majorScale(3)}>Settings</Heading>
           <Pane display="flex" padding={majorScale(2)} marginTop={majorScale(2)} marginBottom={majorScale(3)} alignItems="center" background="tint2" borderRadius={3}>
+            <Pane>
+              <Select onChange={e => this.setState({ model: e.target.value})}>
+                <option value="https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2" selected>MiniLM-L6</option>
+                <option value="https://api-inference.huggingface.co/models/sentence-transformers/all-mpnet-base-v2">mpnet</option>
+                <option value="https://api-inference.huggingface.co/models/sentence-transformers/all-distilroberta-v1">Roberta</option>
+              </Select>
+            </Pane>
             <Text marginRight={majorScale(1)}>Similarity threshold for duplicate detection</Text>
             <TextInput width={64} onChange={e => this.setState({ similarityThreshold: e.target.value })} value={this.state.similarityThreshold} />
             <Switch marginLeft={majorScale(3)} checked={this.state.useActualResult} onChange={(e) => this.setState({ useActualResult: !this.state.useActualResult })} />
