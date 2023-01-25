@@ -9,16 +9,16 @@ const NewIssueForm = (props) => {
       <Heading size={600} marginBottom={majorScale(3)}>Report a new issue</Heading>
       <TextareaInput
         required={false}
-        label="Issue summary"
-        description="Summarise this issue in a single sentence"
+        label="Summary"
+        description="Summarize this issue in a single sentence"
         placeholder="The 'Contact' page gets stuck in infinite loading"
         value={summary}
         onChange={(v) => update('summary', v)}
       />
       <TextareaInput
         required={false}
-        label="Steps to reproduce"
-        description="Describe the steps needed to reproduce this issue"
+        label="Step(s) to reproduce"
+        description="How do you reproduce this issue?"
         placeholder={`1. Open the app\n2. Click on the 'Contact' link...`}
         value={steps}
         onChange={(v) => update('steps', v)}

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Pane, Heading, Text, TextInput, Switch, Strong, majorScale } from 'evergreen-ui'
 import NewIssueForm from './NewIssueForm'
-import NewIssuePreview from './NewIssuePreview'
 import KnownIssuesList from './KnownIssuesList'
 
 class App extends Component {
@@ -93,7 +92,6 @@ class App extends Component {
       })
       .then(json => {
         const duplicates = json.reduce((list, result, index) => {
-          console.log(result)
           if (result > this.state.similarityThreshold) {
             list.push({
               issue: this.state.knownIssues[index],
@@ -133,7 +131,7 @@ class App extends Component {
     return (
       <div>
       <Pane display="flex">
-        <Pane padding={majorScale(4)} width={320} height="100vh" background="#F9FAFC">
+        <Pane padding={majorScale(4)} width={320} minHeight="100vh" background="#F9FAFC">
           <NewIssueForm
             summary={this.state.newIssue.summary}
             steps={this.state.newIssue.steps}
@@ -143,15 +141,15 @@ class App extends Component {
             report={this.reportIssue}
           />
         </Pane>
-        <Pane padding={majorScale(4)} width="100%">
+        <Pane padding={majorScale(4)} paddingLeft={majorScale(5)}>
           <Heading size={600}>List of issues</Heading>
-          <Pane display="flex" padding={majorScale(2)} marginTop={majorScale(3)} marginBottom={majorScale(3)} alignItems="center" background="tint2" borderRadius={3}>
+          <Heading size={100} display="block" marginTop={majorScale(3)}>Settings</Heading>
+          <Pane display="flex" padding={majorScale(2)} marginTop={majorScale(2)} marginBottom={majorScale(3)} alignItems="center" background="tint2" borderRadius={3}>
             <Text marginRight={majorScale(1)}>Similarity threshold for duplicate detection</Text>
             <TextInput width={64} onChange={e => this.setState({ similarityThreshold: e.target.value })} value={this.state.similarityThreshold} />
             <Switch marginLeft={majorScale(3)} checked={this.state.useActualResult} onChange={(e) => this.setState({ useActualResult: !this.state.useActualResult })} />
-            <Text marginLeft={majorScale(1)}>Use <Strong>Actual result</Strong> field instead of <Strong>Issue summary</Strong></Text>
+            <Text marginLeft={majorScale(1)}>Use <Strong>Actual result</Strong> field instead of <Strong>Issue summary</Strong> field for similarity evaluation</Text>
           </Pane>
-          <NewIssuePreview issue={this.state.newIssue} />
           <KnownIssuesList issues={this.state.knownIssues} />
         </Pane>
       </Pane>

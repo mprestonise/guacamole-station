@@ -51,3 +51,11 @@ table {
 textarea {
 	resize: none
 }
+
+.known-issue > div:last-child {
+	display: block;
+	overflow: visible;
+}
+.duplicate-badge {
+	display: block;
+}
