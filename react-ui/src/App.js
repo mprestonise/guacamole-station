@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
-import { Pane, Heading, Text, TextInput, Select, Switch, Strong, majorScale } from 'evergreen-ui'
+import { Pane, Heading, Text, TextInput, Switch, Strong, majorScale } from 'evergreen-ui'
 import NewIssueForm from './NewIssueForm'
 import KnownIssuesList from './KnownIssuesList'
+import { Configuration, OpenAIApi } from "openai";
+const configuration = new Configuration({
+    organization: process.env.REACT_APP_OPENAI_ORG_KEY,
+    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
 
 class App extends Component {
   constructor(props) {
@@ -39,6 +45,7 @@ class App extends Component {
     };
     this.updateNewIssueValue = this.updateNewIssueValue.bind(this);
     this.reportIssue = this.reportIssue.bind(this);
+    this.improveNewIssue = this.improveNewIssue.bind(this);
   }
 
   componentDidMount() {
@@ -70,6 +77,34 @@ class App extends Component {
     this.setState({ newIssue: newIssue });
   }
 
+  improveNewIssue(summary, steps) {
+    fetch('https://api.openai.com/v1/completions', {
+			headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+        'Content-type': "application/json"
+      },
+			method: "POST",
+			body: JSON.stringify({
+        model: "text-davinci-003",
+        prompt: `A summary for a bug is ${summary} with these steps to reproduce: ${steps}. A better summary for this bug would be: \n`,
+        max_tokens: 28
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`status ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(json => {
+      const newSummary = json.choices[0].text
+      this.updateNewIssueValue('summary', newSummary)
+    }).catch(e => {
+      alert(`API call failed: ${e}`);
+      console.log("Error", e);
+    })
+  }
+
   reportIssue() {
     const newId = this.state.newIssue.id + 1;
     let newKnownIssues = this.state.knownIssues;
@@ -81,7 +116,7 @@ class App extends Component {
       }
     }
     fetch(this.state.model, {
-			headers: { Authorization: "Bearer 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" },
+			headers: { Authorization: process.env.REACT_APP_HUGGING_FACE_API_KEY },
 			method: "POST",
 			body: JSON.stringify(data)
     })
@@ -140,20 +175,13 @@ class App extends Component {
             expected={this.state.newIssue.expected}
             update={this.updateNewIssueValue}
             report={this.reportIssue}
+            improveNewIssue={this.improveNewIssue}
           />
         </Pane>
         <Pane padding={majorScale(4)} paddingLeft={majorScale(5)}>
-          <Heading size={600}>List of issues</Heading>
+          <Heading size={600}>List of issues <small>TODO: Add an openAI "improve this issue" (edit) feature</small></Heading>
           <Heading size={100} display="block" marginTop={majorScale(3)}>Settings</Heading>
           <Pane padding={majorScale(2)} marginTop={majorScale(2)} marginBottom={majorScale(3)} background="tint2" borderRadius={3}>
-            {/* <Pane display="flex" alignItems="center" marginBottom={majorScale(2)}>
-              <Text marginRight={majorScale(1)}>Sentence similarity model</Text>
-              <Select maxWidth={160} value={this.state.model} onChange={e => this.setState({ model: e.target.value})}>
-                <option value="https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2">MiniLM-L6</option>
-                <option value="https://api-inference.huggingface.co/models/sentence-transformers/all-mpnet-base-v2">mpnet</option>
-                <option value="https://api-inference.huggingface.co/models/sentence-transformers/all-distilroberta-v1">Roberta</option>
-              </Select>
-            </Pane> */}
             <Pane display="flex" alignItems="center" marginBottom={majorScale(2)}>
               <Text marginRight={majorScale(1)}>Similarity threshold for duplicate detection</Text>
               <TextInput width={64} onChange={e => this.setState({ similarityThreshold: e.target.value })} value={this.state.similarityThreshold} />

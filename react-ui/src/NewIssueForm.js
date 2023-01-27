@@ -3,7 +3,7 @@ import { Heading, Button, majorScale } from 'evergreen-ui'
 import TextareaInput from './TextareaInput'
 
 const NewIssueForm = (props) => {
-  const {summary, steps, actual, expected, update, report} = props
+  const {summary, steps, actual, expected, update, report, improveNewIssue} = props
   return (
     <div>
       <Heading size={600} marginBottom={majorScale(3)}>Report a new issue</Heading>
@@ -40,7 +40,7 @@ const NewIssueForm = (props) => {
         onChange={(v) => update('expected', v)}
       />
       <Button appearance="primary" onClick={() => report()}>Report issue</Button>
-      <Button appearance="minimal" marginLeft={majorScale(1)}>Clear</Button>
+      <Button appearance="minimal" marginLeft={majorScale(1)} onClick={() => improveNewIssue(summary, steps)}>Improve</Button>
     </div>
   )
 }
