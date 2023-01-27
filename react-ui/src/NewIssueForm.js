@@ -40,7 +40,7 @@ const NewIssueForm = (props) => {
         onChange={(v) => update('expected', v)}
       />
       <Button appearance="primary" onClick={() => report()}>Report issue</Button>
-      <Button appearance="minimal" marginLeft={majorScale(1)} onClick={() => improveNewIssue(summary, steps)}>Improve</Button>
+      <Button appearance="primary" intent="success" marginLeft={majorScale(1)} onClick={() => improveNewIssue(summary, steps)}>Improve with GPT3</Button>
     </div>
   )
 }

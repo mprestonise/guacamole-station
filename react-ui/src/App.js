@@ -167,7 +167,7 @@ class App extends Component {
     return (
       <div>
       <Pane display="flex">
-        <Pane padding={majorScale(4)} width={320} minHeight="100vh" background="#F9FAFC">
+        <Pane padding={majorScale(4)} width={400} minHeight="100vh" background="#F9FAFC">
           <NewIssueForm
             summary={this.state.newIssue.summary}
             steps={this.state.newIssue.steps}
@@ -179,7 +179,7 @@ class App extends Component {
           />
         </Pane>
         <Pane padding={majorScale(4)} paddingLeft={majorScale(5)}>
-          <Heading size={600}>List of issues <small>TODO: Add an openAI "improve this issue" (edit) feature</small></Heading>
+          <Heading size={600}>List of issues</Heading>
           <Heading size={100} display="block" marginTop={majorScale(3)}>Settings</Heading>
           <Pane padding={majorScale(2)} marginTop={majorScale(2)} marginBottom={majorScale(3)} background="tint2" borderRadius={3}>
             <Pane display="flex" alignItems="center" marginBottom={majorScale(2)}>
